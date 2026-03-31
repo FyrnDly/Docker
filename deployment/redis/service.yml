@@ -1,0 +1,18 @@
+services:
+  # Redis Store
+  redis:
+    image: "redis:alpine"
+    restart: always
+    ports:
+        - "${REDIS_PORT}:6379"
+    environment:
+      - TZ=Asia/Jakarta
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+    volumes:
+        - "./volumes/storage/redis:/data"
+    networks:
+        - fyrn
+    healthcheck:
+        test: ["CMD", "redis-cli", "ping"]
+        retries: 3
+        timeout: 5s

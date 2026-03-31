@@ -1,0 +1,20 @@
+services:
+  # PostgreSQL Database
+  postgres:
+    build: 
+      context: .
+      dockerfile: deployment/postgres/Dockerfile
+    command: postgres -c shared_preload_libraries=pg_cron
+    image: psql:latest
+    container_name: psql
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      TZ: Asia/Jakarta
+    ports:
+      - "${POSTGRES_PORT}:5432"
+    volumes:
+      - ./volumes/database/psql:/var/lib/postgresql/data
+    restart: always
+    networks:
+      - fyrn

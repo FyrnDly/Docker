@@ -1,0 +1,4 @@
+docker-compose.yml
+.env
+.vscode
+.active_services

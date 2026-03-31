@@ -1,0 +1,16 @@
+services:
+  # Docker Web UI
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: portainer
+    ports:
+      - "${PORTAINER_PORT}:8000"
+      - "${PORTAINER_WEB_PORT}:9443"
+    environment:
+      - TZ=Asia/Jakarta
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./volumes/portainer:/data
+    restart: always
+    networks:
+      - fyrn
