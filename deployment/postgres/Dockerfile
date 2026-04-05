@@ -1,7 +1,5 @@
 FROM postgres:16
 
-VOLUME [ "/var/lib/postgresql/data" ]
-
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
         postgresql-$PG_MAJOR-postgis-3 \
@@ -9,4 +7,5 @@ RUN apt-get update && \
         postgresql-$PG_MAJOR-cron && \
     rm -rf /var/lib/apt/lists/*
 
+COPY deployment/postgres/scripts/ /docker-entrypoint-initdb.d/
 EXPOSE 5432
