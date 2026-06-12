@@ -1,3 +1,16 @@
 networks:
   fyrn:
     driver: bridge
+
+volumes:
+  redis_data:
+  psql_data:
+  portainer_data:
+  npm_data:
+  npm_letsencrypt:
+  mysql_data:
+  minio_data:
+  nodered_data:
+  mosquitto_config:
+  mosquitto_data:
+  mosquitto_log:

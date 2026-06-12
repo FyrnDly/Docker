@@ -12,7 +12,7 @@ services:
       - "${MINIO_API_PORT}:9000"
       - "${MINIO_CONSOLE_PORT}:9001"
     volumes:
-      - ./volumes/storage/minio:/data
+      - minio_data:/data
     restart: always
     networks:
       - fyrn

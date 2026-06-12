@@ -8,7 +8,7 @@ services:
     environment:
       - TZ=Asia/Jakarta
     volumes:
-      - ./volumes/iot/nodered:/data
+      - nodered_data:/data
     restart: always
     networks:
       - fyrn
@@ -32,8 +32,8 @@ services:
     environment:
       - TZ=Asia/Jakarta
     volumes:
-      - ./volumes/iot/mosquitto/config:/mosquitto/config
-      - ./volumes/iot/mosquitto/data:/mosquitto/data
-      - ./volumes/iot/mosquitto/log:/mosquitto/log
+      - mosquitto_config:/mosquitto/config
+      - mosquitto_data:/mosquitto/data
+      - mosquitto_log:/mosquitto/log
     networks:
       - fyrn

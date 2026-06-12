@@ -9,7 +9,7 @@ services:
       - "${NPM_ADMIN_PORT}:81"
       - "${NPM_HTTPS_PORT}:443"
     volumes:
-      - ./volumes/nginx-proxy/data:/data
-      - ./volumes/nginx-proxy/letsencrypt:/etc/letsencrypt
+      - npm_data:/data
+      - npm_letsencrypt:/etc/letsencrypt
     networks:
       - fyrn

@@ -10,7 +10,7 @@ services:
       - TZ=Asia/Jakarta
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ./volumes/portainer:/data
+      - portainer_data:/data
     restart: always
     networks:
       - fyrn
