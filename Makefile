@@ -1,4 +1,21 @@
-.PHONY: docker-build docker-run docker-stop docker-clean docker-install
+.PHONY: help docker-build docker-up docker-stop docker-clean docker-install docker-backup
+
+# Default target when simply typing 'make'
+help:
+	@echo "============================================="
+	@echo "   Docker Local Server - Command Helper"
+	@echo "============================================="
+	@echo "Usage: make [target]"
+	@echo ""
+	@echo "Targets:"
+	@echo "  help           : Display this help menu"
+	@echo "  docker-install : Install Docker & Docker Compose (For fresh servers)"
+	@echo "  docker-build   : Open the interactive menu to toggle services"
+	@echo "  docker-up     : Run all built services in detached mode"
+	@echo "  docker-stop    : Gracefully stop all services without removing data"
+	@echo "  docker-clean   : Remove containers and configs (DOES NOT remove volume data)"
+	@echo "  docker-backup  : Backup all active Docker Volumes to the ./backups directory"
+	@echo "============================================="
 
 docker-install:
 	@echo "Installing Docker..."
@@ -10,7 +27,7 @@ docker-install:
 docker-build:
 	@bash scripts/build_compose.sh
 
-docker-run:
+docker-up:
 	@if [ ! -f docker-compose.yml ]; then \
 		echo "docker-compose.yml not found. Running build..."; \
 		bash scripts/build_compose.sh; \
@@ -24,3 +41,6 @@ docker-clean:
 	docker compose down -v
 	rm -f docker-compose.yml .env .active_services
 	@echo "Cleaned generated configs and removed containers."
+
+docker-backup:
+	@bash scripts/backup_volumes.sh
