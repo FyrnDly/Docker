@@ -4,20 +4,21 @@ Welcome to the Dynamic Local Server repository! This repository contains a modul
 
 ## 🚀 Features
 
-- **Interactive Service Selection**: A builder script allows you to selectively compose and spin up services using a terminal menu.
-- **MinIO Service Integration**: Modern Object Storage (S3 compatible) included for local cloud storage.
-- **Centralized Data Storage**: Persistent volume data is kept cleanly separated from configurations to avoid accidental commits and to simplify backups.
-- **Nginx Proxy Manager Included**: Built-in dynamic routing via Nginx Proxy Manager
+* **Interactive Service Selection**: A toggle-based builder script allows you to selectively add or remove services using a terminal menu.
+* **Docker Named Volumes**: Utilizes Docker's native volume management for better performance, permission handling, and security.
+* **MinIO Service Integration**: Modern Object Storage (S3 compatible) included for local cloud storage.
+* **Nginx Proxy Manager Included**: Built-in dynamic routing via Nginx Proxy Manager.
 
 ## 📂 Project Structure
 
-A major architectural decision in this repository is the separation of **Docker Compose Templates (`deployment/`)** and **Persistent States (`volumes/`)**. 
+A major architectural decision in this repository is the separation of **Docker Compose Templates (`deployment/`)** and **Persistent States**.
 
-The `scripts/build_compose.sh` script dynamically stitches together the isolated service setups from `deployment/` to generate a single `docker-compose.yml` and `.env` root file according to what services you choose.
+The `scripts/build_compose.sh` script dynamically stitches together the isolated service setups to generate a single `docker-compose.yml` and `.env` root file.
+
 ```text
 ├── deployment/       # Configuration templates for all applications
 │   ├── 00_base.yml   # Docker Compose base (services key)
-│   ├── 99_base.yml   # Network configurations
+│   ├── 99_base.yml   # Network and Global Volumes configurations
 │   ├── adminer/      # Database management UI
 │   ├── iot/          # IoT Stack (Node-RED, Mosquitto MQTT)
 │   ├── minio/        # MinIO Object Storage (S3 Compatible)
@@ -26,62 +27,54 @@ The `scripts/build_compose.sh` script dynamically stitches together the isolated
 │   ├── portainer/    # Docker visual manager UI
 │   ├── postgres/     # PostgreSQL Relational Database
 │   └── redis/        # Redis In-memory Datastore
-├── volumes/          # Persistent docker volumes
-│   ├── database/     # MySQL, Postgres data
-│   ├── storage/      # MinIO, general storage
-│   └── iot/          # Node-RED, Mosquitto data
 ├── scripts/          # Bash scripts (Make commands executor)
 ├── .active_services  # (Auto-generated) State file of current active services
 ├── .env              # (Auto-generated) Merged environment variables
 ├── docker-compose.yml# (Auto-generated) Master compose file
 ├── Makefile          # Main command interface
+├── LICENSE.md        # MIT License
 └── README.md
 ```
 
 ## ⚙️ Prerequisites
 
-- Linux / Ubuntu / Debian Server (Recommended for host) or WSL on Windows
-- Docker & Docker Compose
-- `make` utility
-
-If your server is fresh, you can leverage our auto-install setup:
-```bash
-make install
-```
-*(This commands pulls the official installation scripts from `get.docker.com`)*
+* Linux / Ubuntu / Debian Server (Recommended for host) or WSL on Windows
+* Docker & Docker Compose
+* `make` utility
 
 ## 🛠️ Usage
 
-### 1. Build and Select Services
-To spin up your local server, run the interactive builder:
+To keep this documentation concise as our tooling grows, this project utilizes a **self-documenting Makefile**.
+
+### View All Available Commands
+
+To discover all available utilities (including fresh installation, data backups, and environment cleanup), simply run the help command in your terminal:
 
 ```bash
-make build
+make help
 ```
 
-This command will prompt you with a menu. You can selectively type the numbers (e.g. `1 2 4`) of the services you want to compose. It will intelligently pull each service's templated variables and construct a master `docker-compose.yml` and `.env` file on the fly. 
+### Core Workflow (Quick Start)
 
-> **Note:** Running `make build` again allows you to **append** new services to your existing active ones without losing previous deployments. If you wish to restart from scratch, type `reset` in the prompt.
+For day-to-day operations, you will primarily use these three essential commands:
 
-### 2. Run the Stack
-Once your configuration is generated, launch the background processes with:
+**1. Build and Toggle Services**
+Run the interactive builder to select which services you want to activate or deactivate:
 
 ```bash
-make run
+make docker-build
 ```
 
-### 3. Stop the Stack
-To gracefully shut down all active services:
+**2. Start the Server**
+Launch your generated configuration in the background:
 
 ```bash
-make stop
+make docker-up
 ```
 
-### 4. Clean generated config
-To wipe the auto-generated `docker-compose.yml` and `.env` variables from your directory:
+**3. Stop the Server**
+Gracefully shut down all active containers without losing any data:
 
 ```bash
-make clean
+make docker-stop
 ```
-
----
