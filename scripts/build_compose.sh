@@ -23,6 +23,7 @@ SERVICES=(
     "redis"
     "iot"
     "minio"
+    "gotenberg"
 )
 
 # Load existing active services

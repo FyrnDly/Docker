@@ -1,0 +1,10 @@
+services:
+  # Gotenberg - Stateless API for PDF generation
+  gotenberg:
+    image: gotenberg/gotenberg:8
+    container_name: gotenberg
+    ports:
+      - "${GOTENBERG_PORT}:3000"
+    restart: always
+    networks:
+      - fyrn
