@@ -10,6 +10,14 @@ services:
       TZ: Asia/Jakarta
     ports:
       - "${MYSQL_PORT}:3306"
+    deploy:
+      resources:
+          limits:
+              cpus: "2.00"
+              memory: "2G"
+          reservations:
+              cpus: "1.00"
+              memory: "512M"
     volumes:
       - mysql_data:/var/lib/mysql
     restart: always

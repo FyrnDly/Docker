@@ -8,6 +8,11 @@ services:
       - "${PORTAINER_WEB_PORT}:9443"
     environment:
       - TZ=Asia/Jakarta
+    deploy:
+      resources:
+          limits:
+              cpus: "0.50"
+              memory: "512M"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - portainer_data:/data

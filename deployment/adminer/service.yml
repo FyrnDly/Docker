@@ -8,6 +8,14 @@ services:
     environment:
       ADMINER_DEFAULT_SERVER: ${ADMINER_DEFAULT_SERVER}
       TZ: Asia/Jakarta
+    deploy:
+      resources:
+          limits:
+              cpus: "0.50"
+              memory: "512M"
+          reservations:
+              cpus: "0.25"
+              memory: "256M"
     restart: always
     networks:
       - fyrn

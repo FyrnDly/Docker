@@ -11,6 +11,14 @@ services:
       TZ: Asia/Jakarta
     ports:
       - "${POSTGRES_PORT}:5432"
+    deploy:
+      resources:
+          limits:
+              cpus: "2.00"
+              memory: "4G"
+          reservations:
+              cpus: "1"
+              memory: "2G"
     volumes:
       - psql_data:/var/lib/postgresql/data
     restart: always
