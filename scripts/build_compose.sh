@@ -20,6 +20,7 @@ SERVICES=(
     "adminer"
     "mysql"
     "postgres"
+    "pgadmin"
     "redis"
     "iot"
     "minio"

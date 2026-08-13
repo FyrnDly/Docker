@@ -5,6 +5,7 @@ networks:
 volumes:
   redis_data:
   psql_data:
+  pgadmin_data:
   portainer_data:
   npm_data:
   npm_letsencrypt:
