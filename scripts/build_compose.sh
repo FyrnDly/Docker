@@ -25,6 +25,8 @@ SERVICES=(
     "iot"
     "minio"
     "gotenberg"
+    "nextcloud"
+    "collabora"
 )
 
 # Load existing active services

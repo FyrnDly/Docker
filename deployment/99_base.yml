@@ -15,3 +15,4 @@ volumes:
   mosquitto_config:
   mosquitto_data:
   mosquitto_log:
+  nextcloud_data:
